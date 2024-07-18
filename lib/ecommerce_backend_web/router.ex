@@ -7,6 +7,9 @@ defmodule EcommerceBackendWeb.Router do
 
   scope "/api", EcommerceBackendWeb do
     pipe_through :api
+
+    resources "/products", ProductController, only: [:index, :show, :create, :update, :delete]
+    resources "/cart_items", CartItemController, only: [:create, :delete]
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

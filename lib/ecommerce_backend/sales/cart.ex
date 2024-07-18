@@ -4,11 +4,10 @@ defmodule EcommerceBackend.Sales.Cart do
 
   schema "carts" do
     field :user_id, :integer
-
-    timestamps(type: :utc_datetime)
+    has_many :cart_items, EcommerceBackend.Sales.CartItem
+    timestamps()
   end
 
-  @doc false
   def changeset(cart, attrs) do
     cart
     |> cast(attrs, [:user_id])

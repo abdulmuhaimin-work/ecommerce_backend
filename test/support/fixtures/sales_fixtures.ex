@@ -17,4 +17,18 @@ defmodule EcommerceBackend.SalesFixtures do
 
     cart
   end
+
+  @doc """
+  Generate a cart_item.
+  """
+  def cart_item_fixture(attrs \\ %{}) do
+    {:ok, cart_item} =
+      attrs
+      |> Enum.into(%{
+        quantity: 42
+      })
+      |> EcommerceBackend.Sales.create_cart_item()
+
+    cart_item
+  end
 end

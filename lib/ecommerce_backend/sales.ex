@@ -1,104 +1,37 @@
 defmodule EcommerceBackend.Sales do
-  @moduledoc """
-  The Sales context.
-  """
-
   import Ecto.Query, warn: false
   alias EcommerceBackend.Repo
 
-  alias EcommerceBackend.Sales.Cart
+  alias EcommerceBackend.Sales.{Cart, CartItem}
+  alias EcommerceBackend.Catalog.Product
 
-  @doc """
-  Returns the list of carts.
+  def add_to_cart(cart_id, product_id, quantity) do
+    Repo.transaction(fn ->
+      product = Repo.get!(Product, product_id)
 
-  ## Examples
+      if product.inventory >= quantity do
+        Repo.update!(Product.changeset(product, %{inventory: product.inventory - quantity}))
 
-      iex> list_carts()
-      [%Cart{}, ...]
+        cart_item = %CartItem{
+          cart_id: cart_id,
+          product_id: product_id,
+          quantity: quantity
+        }
 
-  """
-  def list_carts do
-    Repo.all(Cart)
+        Repo.insert!(cart_item)
+      else
+        {:error, "Not enough inventory"}
+      end
+    end)
   end
 
-  @doc """
-  Gets a single cart.
-
-  Raises `Ecto.NoResultsError` if the Cart does not exist.
-
-  ## Examples
-
-      iex> get_cart!(123)
-      %Cart{}
-
-      iex> get_cart!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_cart!(id), do: Repo.get!(Cart, id)
-
-  @doc """
-  Creates a cart.
-
-  ## Examples
-
-      iex> create_cart(%{field: value})
-      {:ok, %Cart{}}
-
-      iex> create_cart(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_cart(attrs \\ %{}) do
-    %Cart{}
-    |> Cart.changeset(attrs)
-    |> Repo.insert()
+  def remove_from_cart(cart_item) do
+    Repo.transaction(fn ->
+      product = Repo.get!(Product, cart_item.product_id)
+      Repo.update!(Product.changeset(product, %{inventory: product.inventory + cart_item.quantity}))
+      Repo.delete!(cart_item)
+    end)
   end
 
-  @doc """
-  Updates a cart.
-
-  ## Examples
-
-      iex> update_cart(cart, %{field: new_value})
-      {:ok, %Cart{}}
-
-      iex> update_cart(cart, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_cart(%Cart{} = cart, attrs) do
-    cart
-    |> Cart.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a cart.
-
-  ## Examples
-
-      iex> delete_cart(cart)
-      {:ok, %Cart{}}
-
-      iex> delete_cart(cart)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_cart(%Cart{} = cart) do
-    Repo.delete(cart)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking cart changes.
-
-  ## Examples
-
-      iex> change_cart(cart)
-      %Ecto.Changeset{data: %Cart{}}
-
-  """
-  def change_cart(%Cart{} = cart, attrs \\ %{}) do
-    Cart.changeset(cart, attrs)
-  end
+  def get_cart_item!(id), do: Repo.get!(CartItem, id)
 end

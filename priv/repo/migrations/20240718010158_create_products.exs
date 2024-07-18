@@ -6,6 +6,7 @@ defmodule EcommerceBackend.Repo.Migrations.CreateProducts do
       add :name, :string
       add :description, :text
       add :price, :decimal
+      add :inventory, :integer
 
       timestamps(type: :utc_datetime)
     end
