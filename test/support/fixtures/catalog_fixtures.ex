@@ -13,27 +13,12 @@ defmodule EcommerceBackend.CatalogFixtures do
       |> Enum.into(%{
         description: "some description",
         name: "some name",
-        price: "120.5"
+        price: "120.5",
+        image_url: "some_image_url"
       })
       |> EcommerceBackend.Catalog.create_product()
 
     product
   end
 
-  @doc """
-  Generate a product.
-  """
-  def product_fixture(attrs \\ %{}) do
-    {:ok, product} =
-      attrs
-      |> Enum.into(%{
-        description: "some description",
-        inventory: 42,
-        name: "some name",
-        price: "120.5"
-      })
-      |> EcommerceBackend.Catalog.create_product()
-
-    product
-  end
 end

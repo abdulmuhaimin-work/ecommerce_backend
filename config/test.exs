@@ -7,7 +7,7 @@ import Config
 # Run `mix help test` for more information.
 config :ecommerce_backend, EcommerceBackend.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "zxcv5653",
   hostname: "localhost",
   database: "ecommerce_backend_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
