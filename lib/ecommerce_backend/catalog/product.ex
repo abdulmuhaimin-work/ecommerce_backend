@@ -8,12 +8,13 @@ defmodule EcommerceBackend.Catalog.Product do
     field :description, :string
     field :price, :decimal
     field :inventory, :integer, default: 0
+    field :image_url, :string
     timestamps()
   end
 
   def changeset(product, attrs) do
     product
-    |> cast(attrs, [:name, :description, :price, :inventory])
-    |> validate_required([:name, :description, :price, :inventory])
+    |> cast(attrs, [:name, :description, :price, :inventory, :image_url])
+    |> validate_required([:name, :description, :price, :inventory, :image_url])
   end
 end

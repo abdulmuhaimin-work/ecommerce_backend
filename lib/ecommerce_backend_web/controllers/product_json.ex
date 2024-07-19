@@ -21,7 +21,8 @@ defmodule EcommerceBackendWeb.ProductJSON do
       name: product.name,
       description: product.description,
       price: product.price,
-      inventory: product.inventory
+      inventory: product.inventory,
+      image_url: product.image_url
     }
   end
 end

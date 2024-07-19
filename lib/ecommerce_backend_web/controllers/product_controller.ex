@@ -8,7 +8,7 @@ defmodule EcommerceBackendWeb.ProductController do
 
   def index(conn, _params) do
     products = Catalog.list_products()
-    json(conn, products)
+    render(conn, "index.json", products: products)
   end
 
   def create(conn, %{"product" => product_params}) do
@@ -16,20 +16,20 @@ defmodule EcommerceBackendWeb.ProductController do
       conn
       |> put_status(:created)
       |> put_resp_header("location", ~p"/api/products/#{product.id}")
-      |> json(product)
+      |> render("show.json", product: product)
     end
   end
 
   def show(conn, %{"id" => id}) do
     product = Catalog.get_product!(id)
-    json(conn, product)
+    render(conn, "show.json", product: product)
   end
 
   def update(conn, %{"id" => id, "product" => product_params}) do
     product = Catalog.get_product!(id)
 
     with {:ok, %Product{} = product} <- Catalog.update_product(product, product_params) do
-      json(conn, product)
+      render(conn, "show.json", product: product)
     end
   end
 
