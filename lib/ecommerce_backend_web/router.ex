@@ -9,7 +9,6 @@ defmodule EcommerceBackendWeb.Router do
     pipe_through :api
 
     resources "/products", ProductController, only: [:index, :show, :create, :update, :delete]
-    resources "/cart_items", CartItemController, only: [:create, :delete]
     post "/purchase", PurchaseController, :create
   end
 end

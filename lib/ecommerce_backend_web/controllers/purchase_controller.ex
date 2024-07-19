@@ -1,7 +1,6 @@
 defmodule EcommerceBackendWeb.PurchaseController do
   use EcommerceBackendWeb, :controller
 
-  alias EcommerceBackend.Catalog
   alias EcommerceBackend.Sales
 
   def create(conn, %{"cart_items" => cart_items}) do

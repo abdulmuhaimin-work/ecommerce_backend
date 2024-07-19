@@ -21,7 +21,7 @@ defmodule EcommerceBackend.CatalogTest do
     end
 
     test "create_product/1 with valid data creates a product" do
-      valid_attrs = %{name: "some name", description: "some description", price: "120.5"}
+      valid_attrs = %{name: "some name", description: "some description", price: "120.5", image_url: "some_image_url"}
 
       assert {:ok, %Product{} = product} = Catalog.create_product(valid_attrs)
       assert product.name == "some name"
@@ -35,7 +35,7 @@ defmodule EcommerceBackend.CatalogTest do
 
     test "update_product/2 with valid data updates the product" do
       product = product_fixture()
-      update_attrs = %{name: "some updated name", description: "some updated description", price: "456.7"}
+      update_attrs = %{name: "some updated name", description: "some updated description", price: "456.7", image_url: "some_image_url"}
 
       assert {:ok, %Product{} = product} = Catalog.update_product(product, update_attrs)
       assert product.name == "some updated name"

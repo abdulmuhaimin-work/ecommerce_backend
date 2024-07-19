@@ -9,15 +9,17 @@ defmodule EcommerceBackendWeb.ProductControllerTest do
     name: "some name",
     description: "some description",
     price: "120.5",
-    inventory: 42
+    inventory: 42,
+    image_url: "http://example.com/image.png"
   }
   @update_attrs %{
     name: "some updated name",
     description: "some updated description",
     price: "456.7",
-    inventory: 43
+    inventory: 43,
+    image_url: "http://updatedexample.com/image.png"
   }
-  @invalid_attrs %{name: nil, description: nil, price: nil, inventory: nil}
+  @invalid_attrs %{name: nil, description: nil, price: nil, inventory: nil, image_url: nil}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
