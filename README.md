@@ -21,5 +21,6 @@ To run the tests:
 This backend actually undergo a lot of compared to when I initially plan. When I started, I thought that backend should handle the cart feature. And in real production, I think they should. But in this specific case, I should follow the requirement laid in the test document. But I somehow missed the part where it said I should just let frontend handle the cart functionality, and only realised it after 2 days. So yeah if you find codes related to carts and CartItems, its cause I didnt clean the projects properly of unused code. I was just rushing to finish.
 
 This project architecture is based on the MVC pattern. Since this is Phoenix and Phoenix follows MVC pattern.
+
 The project use context modules to categorised between different part of domain logic. for example, Catalog module handle all product-related logic. and Sales(now deleted) handles cart-related logic
 
